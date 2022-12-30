@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnemonesData : MonoBehaviour
 {
@@ -11,10 +12,30 @@ public class AnemonesData : MonoBehaviour
     public float cooling;
     int[] points;
 
-    
+    public Image Lv1, Lv2, Lv3;
+
+    public GameObject OverlayPoint;
+    public GameObject LastPoint;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "points")
+        {
+            OverlayPoint = other.gameObject;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "points" && OverlayPoint == other.gameObject)
+        {
+            OverlayPoint = null;
+        }
+
+    }
+
     //all the data of all anemones
     //give certain name and level to define a anemones
-    
+
     /*void Start()
     {
         
@@ -119,6 +140,6 @@ public class AnemonesData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

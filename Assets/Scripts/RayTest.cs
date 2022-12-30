@@ -18,6 +18,7 @@ public class RayTest : MonoBehaviour
     {
         RaycastHit[] hits;//ojbs hited by the ray
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//ray from camera to mouse
+        //Debug.DrawRay(Camera.main,)
         hits = Physics.RaycastAll(ray, Mathf.Infinity);//record all objs that hited by the ray
 
         if (Input.GetMouseButton(0))//when hold mouse left down
@@ -31,7 +32,10 @@ public class RayTest : MonoBehaviour
                     if (hitObj.tag == "CanDrag")
                     {
                         if (!DragObj)//no obj is dragging, then can darg sth 
+                        {
                             DragObj = hitObj;//change dragobj to the hited obj
+                            DragObj.GetComponent<AnemonesData>().LastPoint = DragObj.transform.parent.gameObject;
+                        }
                     }
 
                     if (hitObj.name == "UpperFloor")
@@ -46,46 +50,22 @@ public class RayTest : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))//when loose mouse left
         {
-            if (DragObj)//when dragging sth
+            if (DragObj)
             {
-                if (hits.Length > 0)
+                if (DragObj.GetComponent<AnemonesData>().OverlayPoint)//when dragging sth
                 {
-                    print(hits.Length);
-                    for (int i = 0; i < hits.Length; i++)
-                    {
-                        GameObject hitObj = hits[i].collider.gameObject;
-                        print(hitObj);
-                        if(hitObj.tag == "points")
-                        {
-                            collided = hitObj.GetComponent<CollisionDetection>().isCollided;
-                            print(collided);
-                            
-                            //try to put obj into a setted point
-                            if(collided == true)
-                            {
-                                
-                                Vector3 newposition = hits[i].point;
-                                
-                                DragObj.transform.position = newposition;
-                                print(hitObj.GetComponent<CollisionDetection>().isCollided);
-                                print(DragObj.GetComponent<AnemonesData>().kind);
-                                print(DragObj.GetComponent<AnemonesData>().level);
-                                DragObj = null;
-
-                            }
-                        }
-                        
-                        
-                        /*if (hitObj.transform.parent.tag == "points")
-                        {
-                            
-                            
-                        }
-                        */
-
-                    }
+                    GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
+                    DragObj.transform.position = parentPoint.transform.position;
+                    DragObj.transform.SetParent(parentPoint.transform, true);
                 }
+                else
+                {
+                    DragObj.transform.position = DragObj.GetComponent<AnemonesData>().LastPoint.transform.position;
+                }
+
+                DragObj = null;
             }
+
         }
 
     }
