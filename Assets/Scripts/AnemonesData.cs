@@ -7,7 +7,7 @@ public class AnemonesData : MonoBehaviour
 {
     public string code;
     public string kind;
-    public string level;
+    public int level;
     public float damage;
     public float cooling;
     int[] points;
@@ -34,7 +34,7 @@ public class AnemonesData : MonoBehaviour
     }
 
     //all the data of all anemones
-    //give certain name and level to define a anemones
+    //give name and level to define a anemones
 
     /*void Start()
     {

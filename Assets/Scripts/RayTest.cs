@@ -11,7 +11,8 @@ public class RayTest : MonoBehaviour
     }
     public AnemonesData data;
     public GameObject DragObj;
-    public bool collided;
+    public string kind;
+    public int level;
 
     // Update is called once per frame
     void Update()
@@ -21,8 +22,29 @@ public class RayTest : MonoBehaviour
         //Debug.DrawRay(Camera.main,)
         hits = Physics.RaycastAll(ray, Mathf.Infinity);//record all objs that hited by the ray
 
+        //show detials
+        /*
+        if (hits.Length > 0)//hit sth
+            {
+                for (int i = 0; i < hits.Length; i++)//look every hits
+                {
+                    GameObject hitObj = hits[i].collider.gameObject;
+
+                    if (hitObj.tag == "CanDrag")
+                    {
+                        kind = hitObj.GetComponent<AnemonesData>().kind;
+                        level = hitObj.GetComponent<AnemonesData>().level;
+                        //Canvas.transform.Find(kind + level).SetActive(true);
+                        
+                        
+                    }
+                }
+            }
+        */
+
         if (Input.GetMouseButton(0))//when hold mouse left down
         {
+            //pick up
             if (hits.Length > 0)//hit sth
             {
                 for (int i = 0; i < hits.Length; i++)//look every hits
@@ -52,13 +74,26 @@ public class RayTest : MonoBehaviour
         {
             if (DragObj)
             {
-                if (DragObj.GetComponent<AnemonesData>().OverlayPoint)//when dragging sth
+                //put to point
+                //empty point
+                if (DragObj.GetComponent<AnemonesData>().OverlayPoint && !DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.GetChild(0))
                 {
                     GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
                     DragObj.transform.position = parentPoint.transform.position;
                     DragObj.transform.SetParent(parentPoint.transform, true);
                 }
-                else
+
+                //not empty point
+                else if(DragObj.GetComponent<AnemonesData>().OverlayPoint)
+                {
+                    GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
+                    DragObj.transform.position = parentPoint.transform.position;
+                    DragObj.transform.SetParent(parentPoint.transform, true);
+                    //exchange dragobj to ojb in point
+                    DragObj = DragObj.GetComponent<AnemonesData>().OverlayPoint.gameObject.GetChild(0).transform.GameObject;
+                }
+                
+                else//put back
                 {
                     DragObj.transform.position = DragObj.GetComponent<AnemonesData>().LastPoint.transform.position;
                 }
