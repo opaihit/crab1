@@ -7,7 +7,7 @@ public class AnemonesData : MonoBehaviour
 {
     public string code;
     public string kind;
-    public int level;
+    public string level;
     public float damage;
     public float cooling;
     int[] points;

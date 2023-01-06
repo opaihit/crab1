@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RayTest : MonoBehaviour
 {
@@ -11,8 +12,18 @@ public class RayTest : MonoBehaviour
     }
     public AnemonesData data;
     public GameObject DragObj;
+
     public string kind;
-    public int level;
+    public string level;
+    public Image background;
+    public Sprite cheer1;
+
+
+    //show details de method
+    public void changeimage()
+    {
+        background.sprite = Canvas.transform.Find(kind + level);
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,24 +34,22 @@ public class RayTest : MonoBehaviour
         hits = Physics.RaycastAll(ray, Mathf.Infinity);//record all objs that hited by the ray
 
         //show detials
-        /*
         if (hits.Length > 0)//hit sth
+        {
+            for (int i = 0; i < hits.Length; i++)//look every hits
             {
-                for (int i = 0; i < hits.Length; i++)//look every hits
-                {
-                    GameObject hitObj = hits[i].collider.gameObject;
+                GameObject hitObj = hits[i].collider.gameObject;
 
-                    if (hitObj.tag == "CanDrag")
-                    {
-                        kind = hitObj.GetComponent<AnemonesData>().kind;
-                        level = hitObj.GetComponent<AnemonesData>().level;
-                        //Canvas.transform.Find(kind + level).SetActive(true);
-                        
-                        
-                    }
+                if (hitObj.tag == "CanDrag")
+                {
+                    //kind = hitObj.GetComponent<AnemonesData>().kind;
+                    //level = hitObj.GetComponent<AnemonesData>().level;
+                    //Canvas.transform.Find(kind + level).GameObject.SetActive(true);
+                    changeimage();      
                 }
             }
-        */
+        }
+        
 
         if (Input.GetMouseButton(0))//when hold mouse left down
         {
@@ -57,6 +66,8 @@ public class RayTest : MonoBehaviour
                         {
                             DragObj = hitObj;//change dragobj to the hited obj
                             DragObj.GetComponent<AnemonesData>().LastPoint = DragObj.transform.parent.gameObject;
+                            //draging obj no parent
+                            DragObj.transform.SetParent(null, true);
                         }
                     }
 
@@ -84,14 +95,16 @@ public class RayTest : MonoBehaviour
                 }
 
                 //not empty point
+                /*
                 else if(DragObj.GetComponent<AnemonesData>().OverlayPoint)
                 {
                     GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
                     DragObj.transform.position = parentPoint.transform.position;
                     DragObj.transform.SetParent(parentPoint.transform, true);
                     //exchange dragobj to ojb in point
-                    DragObj = DragObj.GetComponent<AnemonesData>().OverlayPoint.gameObject.GetChild(0).transform.GameObject;
+                    DragObj = DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.GetChild(0).gameObject;
                 }
+                */
                 
                 else//put back
                 {

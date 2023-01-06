@@ -358,6 +358,7 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Quirky Series Vol 2/Sea/Crab/Demo/_Scripts/Demo.cs"
 "Assets/Scripts/AnemonesData.cs"
+"Assets/Scripts/ChangeImage.cs"
 "Assets/Scripts/CollisionDetection.cs"
 "Assets/Scripts/RayTest.cs"
 -langversion:9.0
