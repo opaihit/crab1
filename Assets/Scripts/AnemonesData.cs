@@ -7,15 +7,23 @@ public class AnemonesData : MonoBehaviour
 {
     public string code;
     public string kind;
-    public string level;
+    public int level;
     public float damage;
     public float cooling;
     int[] points;
 
-    public Image Lv1, Lv2, Lv3;
+    public Sprite[] InfoSprites;
+
+
+    //public Image Lv1, Lv2, Lv3;
 
     public GameObject OverlayPoint;
     public GameObject LastPoint;
+
+    public Sprite PickedSprite()
+    {
+        return InfoSprites[level - 1];
+    }
 
     private void OnTriggerEnter(Collider other)
     {
