@@ -21,27 +21,44 @@ public class RayTest : MonoBehaviour
 
     public GameObject HoverOverObj;
     public int HoverObjNum;
+    public GameObject OverlapOverObj;
     //public Sprite cheer1;
     //public GameObject CanvasObj;
+    public GameObject PickupBubble;
 
 
-    //show details de method
-    public void changeimage()
+    //***no use le*** show details de method
+    /*public void changeimage()
     {
-        //background.sprite = Canvas.transform.Find(kind + level);
+        //background.sprite = Canvas.transform.Find(kind + level);***x***
         //GameObject.Find("xxxxxx");
         //gameObject.transform.Find("  xxxx");
-    }
+    }*/
 
-    public void ShowInfo()
+    //Information of selected obj
+    public void ShowInfoL()
     {
-        if (HoverOverObj == null && RightInfo_Back.sprite)
+        if (HoverOverObj == null && LeftInfo_Back.sprite)
         {
-            RightInfo_Back.sprite = null;
+            //LeftInfo_Back.sprite = GameObject.Find("LeftDetails").transform.sprite;
+            LeftInfo_Back.sprite = null;
         }
-        if (HoverOverObj && !RightInfo_Back.sprite)
+        if (HoverOverObj && !LeftInfo_Back.sprite)
         {
-            RightInfo_Back.sprite = HoverOverObj.GetComponent<AnemonesData>().PickedSprite();
+            LeftInfo_Back.sprite = HoverOverObj.GetComponent<AnemonesData>().PickedSprite();
+        }
+
+    }
+    //Comparison information
+    public void ShowInfoR()
+    {
+        if (OverlapOverObj == null && RightInfo_Back.sprite)
+        {
+            RightInfo_Back.sprite = null;//problem: cant get background, only white image
+        }
+        if (OverlapOverObj && !RightInfo_Back.sprite)
+        {
+            RightInfo_Back.sprite = OverlapOverObj.GetComponent<AnemonesData>().PickedSprite();
         }
 
     }
@@ -52,9 +69,9 @@ public class RayTest : MonoBehaviour
         RaycastHit[] hits;//ojbs hited by the ray
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//ray from camera to mouse
         //Debug.DrawRay(Camera.main,)
-        hits = Physics.RaycastAll(ray, Mathf.Infinity);//record all objs that hited by the ray
+        hits = Physics.RaycastAll(ray, Mathf.Infinity);//record all objs hited by the ray
 
-        //show detials
+        //show detials of hover obj on left
         if (hits.Length > 0)//hit sth
         {
             HoverObjNum = 0;
@@ -81,35 +98,59 @@ public class RayTest : MonoBehaviour
                 HoverOverObj = HoverObj;
             }
         }
+        ShowInfoL();
 
-        ShowInfo();
-
-
-        if (Input.GetMouseButton(0))//when hold mouse left down
+        //when hold mouse left down
+        if (Input.GetMouseButton(0))
         {
             //pick up
             if (hits.Length > 0)//hit sth
             {
+                GameObject CompareObj = null;
                 for (int i = 0; i < hits.Length; i++)//look every hits
                 {
                     GameObject hitObj = hits[i].collider.gameObject;
 
-                    if (hitObj.tag == "CanDrag")
+                    if (hitObj.tag == "CanDrag")//find hited anemone
                     {
-                        if (!DragObj)//no obj is dragging, then can darg sth 
+                        if (!DragObj)//no obj is dragging, then can darg obj 
                         {
                             DragObj = hitObj;//change dragobj to the hited obj
 
                             DragObj.GetComponent<AnemonesData>().LastPoint = DragObj.transform.parent.gameObject;
                             //draging obj no parent
                             DragObj.transform.SetParent(null, true);
-
-                            //if overlay with other obj show info
-
+                            Instantiate(PickupBubble, DragObj.transform.position, Quaternion.identity);
+                            
                         }
+                        //if overlay with other obj show compare info on right
+                        //1
+                        if(DragObj.GetComponent<AnemonesData>().overlap == true)
+                        {
+                            CompareObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
+                            OverlapOverObj = CompareObj;
+                            ShowInfoR();
+                        }
+                        else if(DragObj.GetComponent<AnemonesData>().overlap == false)
+                        {
+                            CompareObj = null;
+                            OverlapOverObj = null;
+                            ShowInfoR();
+                        }
+                        //2
+                        /*if(HoverObjNum == 2)
+                        {
+                            CompareObj = hits[i + 1].collider.gameObject;
+                            OverlapOverObj = CompareObj;
+                            ShowInfoR();
+                        }*/
+                        
+                        
+
+
                     }
 
-                    if (hitObj.name == "UpperFloor")
+                    if (hitObj.name == "UpperFloor")//up
                     {
                         Vector3 newposition = hits[i].point;
                         if (DragObj)//when dragobj is not null
@@ -119,25 +160,23 @@ public class RayTest : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonUp(0))//when loose mouse left
+        //when loose mouse left
+        if (Input.GetMouseButtonUp(0))
         {
             if (DragObj)
             {
                 //put to point
-                //empty point
-
-
                 if (DragObj.GetComponent<AnemonesData>().OverlayPoint)
                 {
                     int PointChildNum = DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.childCount;
-                    if (PointChildNum == 0)
+                    if (PointChildNum == 0)//empty, put
                     {
                         GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
                         DragObj.transform.position = parentPoint.transform.position;
                         DragObj.transform.SetParent(parentPoint.transform, true);
                     }
 
-                    else//exchange
+                    else//not empty, exchange
                     {
                         GameObject DragObjLastPoint = DragObj.GetComponent<AnemonesData>().LastPoint;
                         GameObject Overlay_Point = DragObj.GetComponent<AnemonesData>().OverlayPoint;
@@ -153,25 +192,14 @@ public class RayTest : MonoBehaviour
                         //DragObj.transform.SetParent(DragObj.GetComponent<AnemonesData>().LastPoint.transform, true);
                     }
                 }
-
-                //not empty point
-                /*
-                else if(DragObj.GetComponent<AnemonesData>().OverlayPoint)
-                {
-                    GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
-                    DragObj.transform.position = parentPoint.transform.position;
-                    DragObj.transform.SetParent(parentPoint.transform, true);
-                    //exchange dragobj to ojb in point
-                    DragObj = DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.GetChild(0).gameObject;
-                }
-                */
-
-                else//put back
+                
+                else//not on point, put back
                 {
                     DragObj.transform.position = DragObj.GetComponent<AnemonesData>().LastPoint.transform.position;
                 }
 
                 DragObj = null;
+                RightInfo_Back.sprite = null;
             }
 
         }

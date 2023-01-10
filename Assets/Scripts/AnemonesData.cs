@@ -12,17 +12,17 @@ public class AnemonesData : MonoBehaviour
     public float cooling;
     int[] points;
 
-    public Sprite[] InfoSprites;
+    public Sprite[] InfoSprites;//information images
 
+    public GameObject OverlayPoint;//now point
+    public GameObject LastPoint;//last point
 
-    //public Image Lv1, Lv2, Lv3;
-
-    public GameObject OverlayPoint;
-    public GameObject LastPoint;
+    public bool overlap = false;//whether overlap with other anemone
+    public GameObject OverlapAnemone;//which anemone overlaped
 
     public Sprite PickedSprite()
     {
-        return InfoSprites[level - 1];
+        return InfoSprites[level - 1];//show detail
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,12 +31,23 @@ public class AnemonesData : MonoBehaviour
         {
             OverlayPoint = other.gameObject;
         }
+        else if (other.gameObject.tag == "CanDrag")
+        {
+            overlap = true;
+            OverlapAnemone = other.gameObject;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "points" && OverlayPoint == other.gameObject)
         {
             OverlayPoint = null;
+            
+        }
+        if (other.gameObject.tag == "CanDrag")
+        {
+            overlap = false;
+            OverlapAnemone = null;
         }
 
     }
