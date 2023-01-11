@@ -42,9 +42,11 @@ public class RayTest : MonoBehaviour
         {
             //LeftInfo_Back.sprite = GameObject.Find("LeftDetails").transform.sprite;
             LeftInfo_Back.sprite = null;
+            LeftInfo_Back.enabled = false;
         }
         if (HoverOverObj && !LeftInfo_Back.sprite)
         {
+            LeftInfo_Back.enabled = true;
             LeftInfo_Back.sprite = HoverOverObj.GetComponent<AnemonesData>().PickedSprite();
         }
 
@@ -121,17 +123,17 @@ public class RayTest : MonoBehaviour
                             //draging obj no parent
                             DragObj.transform.SetParent(null, true);
                             Instantiate(PickupBubble, DragObj.transform.position, Quaternion.identity);
-                            
+
                         }
                         //if overlay with other obj show compare info on right
                         //1
-                        if(DragObj.GetComponent<AnemonesData>().overlap == true)
+                        if (DragObj.GetComponent<AnemonesData>().overlap == true)
                         {
                             CompareObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
                             OverlapOverObj = CompareObj;
                             ShowInfoR();
                         }
-                        else if(DragObj.GetComponent<AnemonesData>().overlap == false)
+                        else if (DragObj.GetComponent<AnemonesData>().overlap == false)
                         {
                             CompareObj = null;
                             OverlapOverObj = null;
@@ -144,8 +146,8 @@ public class RayTest : MonoBehaviour
                             OverlapOverObj = CompareObj;
                             ShowInfoR();
                         }*/
-                        
-                        
+
+
 
 
                     }
@@ -192,7 +194,7 @@ public class RayTest : MonoBehaviour
                         //DragObj.transform.SetParent(DragObj.GetComponent<AnemonesData>().LastPoint.transform, true);
                     }
                 }
-                
+
                 else//not on point, put back
                 {
                     DragObj.transform.position = DragObj.GetComponent<AnemonesData>().LastPoint.transform.position;

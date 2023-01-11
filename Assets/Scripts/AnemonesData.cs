@@ -20,6 +20,7 @@ public class AnemonesData : MonoBehaviour
     public bool overlap = false;//whether overlap with other anemone
     public GameObject OverlapAnemone;//which anemone overlaped
 
+
     public Sprite PickedSprite()
     {
         return InfoSprites[level - 1];//show detail
@@ -42,7 +43,7 @@ public class AnemonesData : MonoBehaviour
         if (other.gameObject.tag == "points" && OverlayPoint == other.gameObject)
         {
             OverlayPoint = null;
-            
+
         }
         if (other.gameObject.tag == "CanDrag")
         {
