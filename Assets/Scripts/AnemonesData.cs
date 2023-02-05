@@ -9,6 +9,8 @@ public class AnemonesData : MonoBehaviour
     public string kind;
     public int level;
     public float damage;
+
+    public int Thislv;
     public float cooling;
     public string[] points;
 
@@ -16,6 +18,8 @@ public class AnemonesData : MonoBehaviour
 
     public GameObject OverlayPoint;//now point
     public GameObject LastPoint;//last point
+
+    public GameObject[] LvObj;
 
     public bool overlap = false;//whether overlap with other anemone
     public GameObject OverlapAnemone;//which anemone overlaped
@@ -59,27 +63,27 @@ public class AnemonesData : MonoBehaviour
     void Start()
     {
         //which point can put
-        if(kind == "cheer")
+        if (kind == "cheer")
         {
-            points = new string[3]{"2","4","5"};
-        }
-        
-        if(kind == "shockwave")
-        {
-            points = new string[5]{"1","2","3","4","5"};
+            points = new string[3] { "2", "4", "5" };
         }
 
-        if(kind == "dexterity")
+        if (kind == "shockwave")
         {
-            points = new string[2]{"4","5"};
+            points = new string[5] { "1", "2", "3", "4", "5" };
         }
 
-        if(kind == "power")
+        if (kind == "dexterity")
         {
-            points = new string[2]{"1","3"};
+            points = new string[2] { "4", "5" };
+        }
+
+        if (kind == "power")
+        {
+            points = new string[2] { "1", "3" };
         }
     }
-    
+
 
     // Update is called once per frame
     void Update()
