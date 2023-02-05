@@ -10,7 +10,7 @@ public class AnemonesData : MonoBehaviour
     public int level;
     public float damage;
     public float cooling;
-    int[] points;
+    public string[] points;
 
     public Sprite[] InfoSprites;//information images
 
@@ -56,106 +56,30 @@ public class AnemonesData : MonoBehaviour
     //all the data of all anemones
     //give name and level to define a anemones
 
-    /*void Start()
+    void Start()
     {
-        
-        if(kind == clawDamage)
+        //which point can put
+        if(kind == "cheer")
         {
-            points = {1, 3, 4, 5};
-            cooling = 0;
-            if(level == 1)
-            {
-                //print("All damage caused by claws +5");
-
-            }
-            if(level == 2)
-            {
-
-            }
-            if(level == 3)
-            {
-
-            }
-
+            points = new string[3]{"2","4","5"};
         }
         
-        if(kind == clawSpeed)
+        if(kind == "shockwave")
         {
-            if(level == 1)
-            {
-
-            }
-            if(level == 2)
-            {
-
-            }
-            if(level == 3)
-            {
-
-            }
-
+            points = new string[5]{"1","2","3","4","5"};
         }
-        
-        if(kind == impactWave)
+
+        if(kind == "dexterity")
         {
-            points = {1, 2, 3, 4, 5};
-
-            if(level == 1)
-            {
-                cooling = 4;
-                damage = 10;
-                //print("causes 10 damage per 4s");
-
-            }
-            if(level == 2)
-            {
-
-            }
-            if(level == 3)
-            {
-
-            }
-
+            points = new string[2]{"4","5"};
         }
-        
-        if(kind == shield)
+
+        if(kind == "power")
         {
-            if(level == 1)
-            {
-
-            }
-            if(level == 2)
-            {
-
-            }
-            if(level == 3)
-            {
-
-            }
-
+            points = new string[2]{"1","3"};
         }
-        
-        if(kind == cheering)
-        {
-            points = {1, 2, 3, 4, 5};
-            cooling = 0;
-            if(level == 1)
-            {
-
-            }
-            if(level == 2)
-            {
-                //print("All damage caused by anemones x1.5");
-
-            }
-            if(level == 3)
-            {
-
-            }
-        }
-        
     }
-    */
+    
 
     // Update is called once per frame
     void Update()
