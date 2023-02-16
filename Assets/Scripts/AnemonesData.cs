@@ -12,7 +12,7 @@ public class AnemonesData : MonoBehaviour
 
     public int Thislv;
     public float cooling;
-    public string[] points;
+    public string[] AblePoints;
 
     public Sprite[] InfoSprites;//information images
 
@@ -35,7 +35,7 @@ public class AnemonesData : MonoBehaviour
         if (other.gameObject.tag == "points")
         {
             OverlayPoint = other.gameObject;
-            LastPoint = null;
+            //LastPoint = null;
         }
         else if (other.gameObject.tag == "CanDrag")
         {
@@ -64,24 +64,24 @@ public class AnemonesData : MonoBehaviour
     void Start()
     {
         //which point can put
-        if (kind == "cheer")
+        if (name == "cheer")
         {
-            points = new string[3] { "2", "4", "5" };
+            AblePoints = new string[6] { "1", "2", "3", "4", "5", "new" };
         }
 
-        if (kind == "shockwave")
+        if (name == "shockwave")
         {
-            points = new string[5] { "1", "2", "3", "4", "5" };
+            AblePoints = new string[6] { "1", "2", "3", "4", "5", "new" };
         }
 
-        if (kind == "dexterity")
+        if (name == "dexterity")
         {
-            points = new string[2] { "4", "5" };
+            AblePoints = new string[3] { "4", "5", "new" };
         }
 
-        if (kind == "power")
+        if (name == "power")
         {
-            points = new string[2] { "1", "3" };
+            AblePoints = new string[3] { "1", "3", "new" };
         }
     }
 

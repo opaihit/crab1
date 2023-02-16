@@ -143,7 +143,7 @@ public class RayTest : MonoBehaviour
                         }
                         //show which point can put
                         int pointNumber = points.transform.childCount;
-                        canputpoints = DragObj.GetComponent<AnemonesData>().points;
+                        canputpoints = DragObj.GetComponent<AnemonesData>().AblePoints;
                         
                         if(findOutNumber < canputpoints.Length)
                         {
@@ -214,7 +214,7 @@ public class RayTest : MonoBehaviour
                             GameObject Overlay_Point = DragObj.GetComponent<AnemonesData>().OverlayPoint;//now a & ex a de now p
                             GameObject OldObj = Overlay_Point.transform.GetChild(0).gameObject;//ex a in now p
                             //GameObject OldObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
-                            ex_canputpoints = OldObj.GetComponent<AnemonesData>().points;//ex a de can put p
+                            ex_canputpoints = OldObj.GetComponent<AnemonesData>().AblePoints;//ex a de can put p
 
                             //can exchange, exchange
                             for (int p = 0; p < ex_canputpoints.Length; p++)
