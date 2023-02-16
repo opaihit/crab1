@@ -35,6 +35,7 @@ public class AnemonesData : MonoBehaviour
         if (other.gameObject.tag == "points")
         {
             OverlayPoint = other.gameObject;
+            LastPoint = null;
         }
         else if (other.gameObject.tag == "CanDrag")
         {
@@ -46,10 +47,10 @@ public class AnemonesData : MonoBehaviour
     {
         if (other.gameObject.tag == "points" && OverlayPoint == other.gameObject)
         {
+            LastPoint = OverlayPoint;
             OverlayPoint = null;
-
         }
-        if (other.gameObject.tag == "CanDrag")
+        else if (other.gameObject.tag == "CanDrag")
         {
             overlap = false;
             OverlapAnemone = null;
@@ -57,7 +58,7 @@ public class AnemonesData : MonoBehaviour
 
     }
 
-    //all the data of all anemones
+    //all data of all anemones
     //give name and level to define a anemones
 
     void Start()

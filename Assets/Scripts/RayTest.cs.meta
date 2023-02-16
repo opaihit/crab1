@@ -3,7 +3,17 @@ guid: d40878a76c0bf2f4495423018640b1bc
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - data: {instanceID: 0}
+  - DragObj: {instanceID: 0}
+  - points: {instanceID: 0}
+  - LeftInfo_Back: {instanceID: 0}
+  - RightInfo_Back: {instanceID: 0}
+  - HoverOverObj: {instanceID: 0}
+  - OverlapOverObj: {instanceID: 0}
+  - PickupBubble: {instanceID: 0}
+  - CanPutLight: {instanceID: 0}
+  - newEffect: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
