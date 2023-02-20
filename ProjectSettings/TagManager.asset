@@ -7,6 +7,7 @@ TagManager:
   - CanDrag
   - points
   - LightEffect
+  - StarEffect
   layers:
   - Default
   - TransparentFX

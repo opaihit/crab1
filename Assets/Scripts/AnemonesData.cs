@@ -16,6 +16,7 @@ public class AnemonesData : MonoBehaviour
 
     public Sprite[] InfoSprites;//information images
 
+    public GameObject PickupPoint;
     public GameObject OverlayPoint;//now point
     public GameObject LastPoint;//last point
 
@@ -59,7 +60,7 @@ public class AnemonesData : MonoBehaviour
     }
 
     //all data of all anemones
-    //give name and level to define a anemones
+    //give name and level to define a anemone
 
     void Start()
     {
@@ -69,17 +70,17 @@ public class AnemonesData : MonoBehaviour
             AblePoints = new string[6] { "1", "2", "3", "4", "5", "new" };
         }
 
-        if (name == "shockwave")
+        else if (name == "shockwave")
         {
             AblePoints = new string[6] { "1", "2", "3", "4", "5", "new" };
         }
 
-        if (name == "dexterity")
+        else if (name == "dexterity")
         {
             AblePoints = new string[3] { "4", "5", "new" };
         }
 
-        if (name == "power")
+        else if (name == "power")
         {
             AblePoints = new string[3] { "1", "3", "new" };
         }
