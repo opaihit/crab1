@@ -261,15 +261,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4591666548255138, guid: ad6bd52af285c5b488766ec97573c3fc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.13686724
+      value: 0.098537005
       objectReference: {fileID: 0}
     - target: {fileID: 4591666548255138, guid: ad6bd52af285c5b488766ec97573c3fc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.13686724
+      value: 0.13963678
       objectReference: {fileID: 0}
     - target: {fileID: 4591666548255138, guid: ad6bd52af285c5b488766ec97573c3fc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.13686724
+      value: 0.098537005
       objectReference: {fileID: 0}
     - target: {fileID: 4591666548255138, guid: ad6bd52af285c5b488766ec97573c3fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -789,8 +789,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -346.59396, y: -106.462}
-  m_SizeDelta: {x: 212.5721, y: 180.066}
+  m_AnchoredPosition: {x: -352.88, y: -96.5}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &686147170
 MonoBehaviour:
@@ -1042,6 +1042,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6ae373deed6977e4c8e816727650ebb1, type: 3}
   - {fileID: 21300000, guid: 77c29d0cbaf16834daa089ef0c4a01e2, type: 3}
   - {fileID: 21300000, guid: 06a5eb9a390d0c244a2656a9ac9750d0, type: 3}
+  PickupPoint: {fileID: 0}
   OverlayPoint: {fileID: 0}
   LastPoint: {fileID: 0}
   LvObj: []
@@ -1793,7 +1794,8 @@ MonoBehaviour:
   InfoSprites:
   - {fileID: 21300000, guid: be168a3e49b21264cbcd128b707152b7, type: 3}
   - {fileID: 21300000, guid: ad5e534516977e141a1c75e302e1d0a2, type: 3}
-  - {fileID: 21300000, guid: f1e09bf79ec3e2b48aec941bd68f62d8, type: 3}
+  - {fileID: 21300000, guid: fed0c9541f898604685b20d7d589431d, type: 3}
+  PickupPoint: {fileID: 0}
   OverlayPoint: {fileID: 0}
   LastPoint: {fileID: 0}
   LvObj: []
@@ -1868,8 +1870,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 332.7131, y: -109}
-  m_SizeDelta: {x: 240.319, y: 174.99}
+  m_AnchoredPosition: {x: 352.88, y: -96.5}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1830713079
 MonoBehaviour:
@@ -2090,6 +2092,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 494e31133a3984340996ff3a203fdbb4, type: 3}
   - {fileID: 21300000, guid: 58afc911eaf90c3448d6688098496818, type: 3}
   - {fileID: 21300000, guid: 33be7a3b8704dcb4c8390df442241d5c, type: 3}
+  PickupPoint: {fileID: 0}
   OverlayPoint: {fileID: 0}
   LastPoint: {fileID: 0}
   LvObj: []
@@ -2157,6 +2160,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2ffe89278c3807b40b66437020ab2b36, type: 3}
   - {fileID: 21300000, guid: 5aab45996ceb35c4999b791cc6e70153, type: 3}
   - {fileID: 21300000, guid: b54f3677ed0fad44a934ecd64a261995, type: 3}
+  PickupPoint: {fileID: 0}
   OverlayPoint: {fileID: 0}
   LastPoint: {fileID: 0}
   LvObj: []
@@ -2742,6 +2746,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6ae373deed6977e4c8e816727650ebb1, type: 3}
   - {fileID: 21300000, guid: 77c29d0cbaf16834daa089ef0c4a01e2, type: 3}
   - {fileID: 21300000, guid: 06a5eb9a390d0c244a2656a9ac9750d0, type: 3}
+  PickupPoint: {fileID: 0}
   OverlayPoint: {fileID: 0}
   LastPoint: {fileID: 0}
   LvObj: []

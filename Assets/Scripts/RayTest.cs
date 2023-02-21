@@ -211,7 +211,7 @@ public class RayTest : MonoBehaviour
                             GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
                             DragObj.transform.position = parentPoint.transform.position;
                             DragObj.transform.SetParent(parentPoint.transform, true);
-                            //put down star
+                            //show put down star
                             GameObject putEffect = Instantiate(PutDownStar, DragObj.transform.position, Quaternion.identity);
                             putEffect.name = "putEffect";
                             putEffect.tag = "StarEffect";
@@ -222,9 +222,10 @@ public class RayTest : MonoBehaviour
                             //prepare for exchange
                             GameObject DragObjLastPoint = DragObj.GetComponent<AnemonesData>().PickupPoint;//now a de pick up p
                             GameObject Overlay_Point = DragObj.GetComponent<AnemonesData>().OverlayPoint;//now a & ex a de now p
+                            //GameObject OldObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
                             GameObject OldObj = Overlay_Point.transform.GetChild(0).gameObject;//ex a in now p
                             GameObject PutTo_Point = OldObj.transform.parent.gameObject;
-                            //GameObject OldObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
+    
                             ex_canputpoints = OldObj.GetComponent<AnemonesData>().AblePoints;//ex a de can put p
 
                             //can exchange, exchange
