@@ -65,6 +65,7 @@ public class RayTest : MonoBehaviour
 
     }
 
+    //exchange two anemones
     private void ExchangeItemPos(GameObject PutTo_Point, GameObject OldObj, GameObject DragObjLastPoint)
     {
         Debug.Log(PutTo_Point.name);
@@ -83,7 +84,7 @@ public class RayTest : MonoBehaviour
     {
         RaycastHit[] hits;//ojbs hited by the ray
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//ray from camera to mouse
-                                                                    //Debug.DrawRay(Camera.main,)
+        //Debug.DrawRay(Camera.main,)
         hits = Physics.RaycastAll(ray, Mathf.Infinity);//record all objs hited by the ray
 
         //show detials of on left when hover obj
@@ -137,20 +138,17 @@ public class RayTest : MonoBehaviour
                             DragObj.GetComponent<AnemonesData>().PickupPoint = DragObj.transform.parent.gameObject;
                             //draging obj has no parent
                             DragObj.transform.SetParent(null, true);//clean parent
-                                                                    //pick up bubble
-                            Instantiate(PickupBubble, DragObj.transform.position, Quaternion.identity);
+                            Instantiate(PickupBubble, DragObj.transform.position, Quaternion.identity);//pick up bubble
                         }
 
-                        //if overlay with other obj show compare info on right
-                        if (DragObj.GetComponent<AnemonesData>().overlap == true)
-                        //if (DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.GetChild(0))
-                        //---------------------------------------------------------------- use Childcount >0
+                        //if overlap with other obj show compare info on right, or clean right info
+                        if (DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.childCount > 0)
                         {
                             CompareObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
                             OverlapOverObj = CompareObj;
                             ShowInfoR();
                         }
-                        else if (DragObj.GetComponent<AnemonesData>().overlap == false)
+                        else if (DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.childCount == 0)
                         {
                             CompareObj = null;
                             OverlapOverObj = null;
@@ -160,7 +158,6 @@ public class RayTest : MonoBehaviour
                         //show which point can put
                         int pointNumber = points.transform.childCount;
                         canputpoints = DragObj.GetComponent<AnemonesData>().AblePoints;
-
                         if (findOutNumber < canputpoints.Length)
                         {
                             for (int m = 0; m < canputpoints.Length; m++)
@@ -172,7 +169,7 @@ public class RayTest : MonoBehaviour
                                         findOutNumber += 1;
                                         //Debug.Log(findOutNumber);
                                         //Debug.Log(points.transform.GetChild(n).name);
-                                        //can put light
+                                        //show can put light
                                         GameObject newEffect = Instantiate(CanPutLight, points.transform.GetChild(n).transform.position, Quaternion.identity);
                                         newEffect.name = "newEffect";
                                         newEffect.tag = "LightEffect";
@@ -208,10 +205,13 @@ public class RayTest : MonoBehaviour
                 //clear find_out_can_put_number
                 findOutNumber = 0;
 
-                //put down
-                if (DragObj.GetComponent<AnemonesData>().OverlayPoint)//when anemone on a point
+                //on point, put down
+                if (DragObj.GetComponent<AnemonesData>().OverlayPoint)
                 {
+                    //whether there is an anemone on overlay point
                     int PointChildNum = DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.childCount;
+
+                    //compare name of overlay point and can put point
                     for (int s = 0; s < canputpoints.Length; s++)
                     {
                         //empty and can put, put
@@ -224,33 +224,40 @@ public class RayTest : MonoBehaviour
                             GameObject putEffect = Instantiate(PutDownStar, DragObj.transform.position, Quaternion.identity);
                             putEffect.name = "putEffect";
                             putEffect.tag = "StarEffect";
-                            Debug.Log("put on empty point");
+                            //Debug.Log("put on empty point");
                         }
+                        //empty but cant put, put back
+                        else if (PointChildNum == 0 && DragObj.GetComponent<AnemonesData>().OverlayPoint.name != canputpoints[s])
+                        {
+                            DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
+                        }
+
                         //not empty but can put
                         else if (PointChildNum != 0 && DragObj.GetComponent<AnemonesData>().OverlayPoint.name == canputpoints[s])
                         {
                             //prepare for exchange
                             GameObject DragObjLastPoint = DragObj.GetComponent<AnemonesData>().PickupPoint;//now a de pick up p
                             GameObject Overlay_Point = DragObj.GetComponent<AnemonesData>().OverlayPoint;//now a & ex a de now p
-                                                                                                         //GameObject OldObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
+                            //GameObject OldObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
                             GameObject OldObj = Overlay_Point.transform.GetChild(0).gameObject;//ex a in now p
                             GameObject PutTo_Point = OldObj.transform.parent.gameObject;
 
                             ex_canputpoints = OldObj.GetComponent<AnemonesData>().AblePoints;//ex a de can put p
 
                             bool CanExchange = false;
-                            //can exchange, exchange
+
+                            //can exchange?
                             for (int p = 0; p < ex_canputpoints.Length; p++)
                             {
                                 if (DragObjLastPoint.name == ex_canputpoints[p])//ex a can put to now a de last p
                                 {
                                     CanExchange = true;
-                                }
-
-                                //exchange
-                                if (CanExchange == true)
-                                {
-                                    ExchangeItemPos(PutTo_Point, OldObj, DragObjLastPoint);
+                                }   
+                            }
+                            //can exchange, exchange
+                            if (CanExchange == true)
+                            {
+                                ExchangeItemPos(PutTo_Point, OldObj, DragObjLastPoint);
                                     //Debug.Log(points.transform.GetChild(n).name);
                                     /*Debug.Log(PutTo_Point.name);
                                     DragObj.transform.position = PutTo_Point.transform.position;
@@ -260,21 +267,28 @@ public class RayTest : MonoBehaviour
                                     OldObj.transform.SetParent(DragObjLastPoint.transform, true);
 
                                     Instantiate(PutDownStar, DragObj.transform.position, Quaternion.identity);
-                                    Instantiate(PutDownStar, OldObj.transform.position, Quaternion.identity);*/
-                                }
-                                else
-                                {
-                                    //put back
-                                }
+                                    Instantiate(PutDownStar, OldObj.transform.position, Quaternion.identity);
+                                    */
+                            }
+                            //cant exchange, put back
+                            else if(CanExchange == false)
+                            {
+                                DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
                             }
                         }
-
-                        else //if( )  //not on point and other situation, put back
+                        //not empty and cant put, put back
+                        else if(PointChildNum != 0 && DragObj.GetComponent<AnemonesData>().OverlayPoint.name != canputpoints[s])
                         {
-                            DragObj.transform.position = DragObj.GetComponent<AnemonesData>().LastPoint.transform.position;
+                            DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
                         }
                     }
 
+                }
+
+                //not on point, putback
+                else if(!DragObj.GetComponent<AnemonesData>().OverlayPoint)
+                {
+                    DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
                 }
 
                 //clean
