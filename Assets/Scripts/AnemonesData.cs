@@ -64,6 +64,10 @@ public class AnemonesData : MonoBehaviour
 
     void Start()
     {
+        //set original pick up point, but cant find parent of itself, cant "self".transform.parent
+        //OnTriggerEnter(other); //cant run in start, no declaration of "other"
+        //PickupPoint = OverlayPoint;
+        
         //which point can put
         if (name == "cheer")
         {

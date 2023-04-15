@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class RayTest : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     public AnemonesData data;
     public GameObject DragObj;
     public GameObject points;
-
     public string kind;
     public string level;
     //public Image background;
@@ -69,7 +68,9 @@ public class RayTest : MonoBehaviour
     private void ExchangeItemPos(GameObject PutTo_Point, GameObject OldObj, GameObject DragObjLastPoint)
     {
         Debug.Log(PutTo_Point.name);
-        DragObj.transform.position = PutTo_Point.transform.position;
+        //DragObj.transform.position = PutTo_Point.transform.position;//bug
+        DragObj.transform.position = OldObj.GetComponent<AnemonesData>().OverlayPoint.transform.position; //bug
+        DragObj.transform.position = OldObj.GetComponent<AnemonesData>().PickupPoint.transform.position; //bug
         DragObj.transform.SetParent(PutTo_Point.transform, true);
 
         OldObj.transform.position = DragObjLastPoint.transform.position;
@@ -211,6 +212,86 @@ public class RayTest : MonoBehaviour
                     //whether there is an anemone on overlay point
                     int PointChildNum = DragObj.GetComponent<AnemonesData>().OverlayPoint.transform.childCount;
 
+                    //different conditions of put down
+                    for (int s1 = 0; s1 < canputpoints.Length; s1 ++)
+                    {
+                        //empty and can put, put
+                        if (PointChildNum == 0 && DragObj.GetComponent<AnemonesData>().OverlayPoint.name == canputpoints[s1])
+                        {
+                            GameObject parentPoint = DragObj.GetComponent<AnemonesData>().OverlayPoint;
+                            DragObj.transform.position = parentPoint.transform.position;
+                            DragObj.transform.SetParent(parentPoint.transform, true);
+                            //show put down star
+                            GameObject putEffect = Instantiate(PutDownStar, DragObj.transform.position, Quaternion.identity);
+                            putEffect.name = "putEffect";
+                            putEffect.tag = "StarEffect";
+                            //Debug.Log("put on empty point");
+                        }
+                        break;
+                    }
+
+                    for (int s2 = 0; s2 < canputpoints.Length; s2 ++)
+                    {
+                        //empty but cant put, put back
+                        if (PointChildNum == 0 && DragObj.GetComponent<AnemonesData>().OverlayPoint.name != canputpoints[s2])
+                        {
+                            DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
+                        }
+                        break;
+                    }
+
+                    for (int s3 = 0; s3 < canputpoints.Length; s3 ++)
+                    {
+                        //not empty but can put
+                        if (PointChildNum != 0 && DragObj.GetComponent<AnemonesData>().OverlayPoint.name == canputpoints[s3])
+                        {
+                            //prepare for exchange
+                            GameObject DragObjLastPoint = DragObj.GetComponent<AnemonesData>().PickupPoint;//now a de pick up p
+                            GameObject Overlay_Point = DragObj.GetComponent<AnemonesData>().OverlayPoint;//now a & ex a de now p
+                            //GameObject OldObj = DragObj.GetComponent<AnemonesData>().OverlapAnemone;
+                            GameObject OldObj = Overlay_Point.transform.GetChild(0).gameObject;//ex a in now p
+                            //GameObject PutTo_Point = OldObj.transform.parent.gameObject;//may bug
+                            GameObject PutTo_Point = OldObj.GetComponent<AnemonesData>().OverlayPoint;
+
+                            ex_canputpoints = OldObj.GetComponent<AnemonesData>().AblePoints;//ex a de can put p
+
+                            bool CanExchange = false;
+
+                            //can exchange?
+                            for (int p = 0; p < ex_canputpoints.Length; p++)
+                            {
+                                if (DragObjLastPoint.name == ex_canputpoints[p])//ex a can put to now a de last p
+                                {
+                                    CanExchange = true;
+                                    Debug.Log("can exchange");                                
+                                }   
+                            } //can work
+
+                            //can exchange, exchange
+                            if (CanExchange == true)
+                            {
+                                ExchangeItemPos(PutTo_Point, OldObj, DragObjLastPoint);
+                            }
+                            //cant exchange, put back
+                            else if(CanExchange == false)
+                            {
+                                DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
+                            }
+                            break;
+                        }
+                    }
+
+                    for (int s4 = 0; s4 < canputpoints.Length; s4 ++)
+                    {
+                        //not empty and cant put, put back
+                        if(PointChildNum != 0 && DragObj.GetComponent<AnemonesData>().OverlayPoint.name != canputpoints[s4])
+                        {
+                            DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
+                        }
+                        break;
+                    }
+
+                    /*
                     //compare name of overlay point and can put point
                     for (int s = 0; s < canputpoints.Length; s++)
                     {
@@ -259,7 +340,7 @@ public class RayTest : MonoBehaviour
                             {
                                 ExchangeItemPos(PutTo_Point, OldObj, DragObjLastPoint);
                                     //Debug.Log(points.transform.GetChild(n).name);
-                                    /*Debug.Log(PutTo_Point.name);
+                                    Debug.Log(PutTo_Point.name);
                                     DragObj.transform.position = PutTo_Point.transform.position;
                                     DragObj.transform.SetParent(PutTo_Point.transform, true);
 
@@ -268,7 +349,7 @@ public class RayTest : MonoBehaviour
 
                                     Instantiate(PutDownStar, DragObj.transform.position, Quaternion.identity);
                                     Instantiate(PutDownStar, OldObj.transform.position, Quaternion.identity);
-                                    */
+                                    
                             }
                             //cant exchange, put back
                             else if(CanExchange == false)
@@ -282,6 +363,7 @@ public class RayTest : MonoBehaviour
                             DragObj.transform.position = DragObj.GetComponent<AnemonesData>().PickupPoint.transform.position;
                         }
                     }
+                    */
 
                 }
 

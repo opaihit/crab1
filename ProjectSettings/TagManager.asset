@@ -8,6 +8,7 @@ TagManager:
   - points
   - LightEffect
   - StarEffect
+  - claws
   layers:
   - Default
   - TransparentFX
