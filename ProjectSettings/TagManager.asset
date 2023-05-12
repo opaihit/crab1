@@ -9,6 +9,7 @@ TagManager:
   - LightEffect
   - StarEffect
   - claws
+  - LvUp
   layers:
   - Default
   - TransparentFX

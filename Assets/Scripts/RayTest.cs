@@ -13,6 +13,8 @@ public class RayTest : MonoBehaviour
     public string level;
     //public Image background;
 
+    public GameObject LvUpCard;
+
     public Image LeftInfo_Back, RightInfo_Back;
 
     public GameObject HoverOverObj;
@@ -88,7 +90,7 @@ public class RayTest : MonoBehaviour
         //Debug.DrawRay(Camera.main,)
         hits = Physics.RaycastAll(ray, Mathf.Infinity);//record all objs hited by the ray
 
-        //show detials of on left when hover obj
+        //show detials of anemone on left when hover obj
         if (hits.Length > 0)//hit sth
         {
             HoverObjNum = 0;
@@ -103,6 +105,7 @@ public class RayTest : MonoBehaviour
                     HoverObjNum++;
                     HoverObj = hitObj;
                 }
+                
             }
 
             if (HoverObjNum == 0)//hit no anmone
@@ -178,6 +181,7 @@ public class RayTest : MonoBehaviour
                                 }
                             }
                         }
+
                     }
 
                     //up
@@ -187,6 +191,7 @@ public class RayTest : MonoBehaviour
                         if (DragObj)//when dragobj is not null
                             DragObj.transform.position = newposition;
                     }
+
                 }
             }
         }
