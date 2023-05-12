@@ -25,6 +25,7 @@ public class AnemonesData : MonoBehaviour
     public bool overlap = false;//whether overlap with other anemone
     public GameObject OverlapAnemone;//which anemone overlaped
 
+    
 
     public Sprite PickedSprite()
     {

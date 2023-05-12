@@ -192,6 +192,14 @@ public class RayTest : MonoBehaviour
                             DragObj.transform.position = newposition;
                     }
 
+                    if(hit.tag == "LvUp")
+                    {
+                        LvUpCard = hitObj;
+                        Vector3 newposition = hits[i].point;
+                        if (LvUpCard)
+                            LvUpCard.transform.position = newposition;
+                    }
+
                 }
             }
         }

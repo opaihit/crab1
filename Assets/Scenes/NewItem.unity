@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 579281169}
   m_Layer: 0
   m_Name: LvUpCard
-  m_TagString: CanDrag
+  m_TagString: LvUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
